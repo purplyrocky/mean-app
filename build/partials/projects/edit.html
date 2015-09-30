@@ -1,0 +1,15 @@
+<div>
+    <h1>{{projectEditController.project.title}}</h1>
+
+    <form class="form" data-ng-submit="projectEditController.update(projectEditController.projectCopy)" name="projectEditForm">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" required data-ng-model="projectEditController.projectCopy.title" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label for="user">User</label>
+            <select name="user" class="form-control" data-ng-model="projectEditController.projectCopy.user" data-ng-options="user as user.fullName() for user in projectEditController.users" id="user"></select>
+        </div>
+        <button class="btn btn-primary btn-lg btn-block">Save</button>
+    </form>
+</div>

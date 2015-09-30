@@ -1,0 +1,29 @@
+<div data-ui-view>
+	<div class="controls pull-right">
+        <a data-ui-sref="projects.detail.edit({projectId: projectController.project._id})" style="cursor: pointer; font-size: 1.5em;">
+            <i class="fa fa-pencil"></i> Edit
+        </a>
+        <a data-ng-click="projectController.del(projectController.project._id)" style="cursor: pointer; font-size: 1.5em; color: red; display: inline-block; margin-left: 20px;">
+            <i class="fa fa-times"></i> Delete
+        </a>
+    </div>
+
+    <h1>{{projectController.project.title}}</h1>
+
+    <table class="table table-striped">
+        <tbody>
+        <tr>
+            <th>Project Title</th>
+            <td>{{projectController.project.title}}</td>
+        </tr>
+        <tr>
+            <th>Project User</th>
+            <td>{{projectController.project.user.first_name}} {{projectController.project.user.last_name}}</td>
+        </tr>
+        <tr>
+            <th>User Email</th>
+            <td>{{projectController.project.user.email}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

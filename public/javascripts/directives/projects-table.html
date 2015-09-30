@@ -1,0 +1,36 @@
+<div>
+
+	<table data-ng-if="projects.length" class="table table-striped">
+	  <thead>
+	  <tr>
+	      <th>Project</th>
+	      <th>User</th>
+	      <th>Email</th>
+	      <th>Created At</th>
+	      <th></th>
+	  </tr>
+	  </thead>
+	  <tbody>
+	  <tr data-ng-repeat="project in projects">
+	      <td><a data-ui-sref="projects.detail({projectId: project._id})">{{project.title}}</a></td>
+	      <td>{{project.user.fullName()}}</td>
+	      <td>{{project.user.email}}</td>
+	      <td>{{project.created_at | niceDate: 'MM-DD-YYYY'}}</td>
+	      <td>
+	          <a data-ui-sref="projects.detail.edit({projectId: project._id})">
+	              <i class="fa fa-pencil"></i> Edit
+	          </a>
+
+	          <a style="color: red; display: inline-block; margin-left: 20px; cursor: pointer;" data-ng-click="remove(project._id)">
+	              <i class="fa fa-times"></i> Delete
+	          </a>
+	      </td>
+	  </tr>
+	  </tbody>
+	</table>
+
+	<div data-ng-if="!projects.length" class="alert alert-info">
+        SCRAM!
+    </div>
+
+</div>
