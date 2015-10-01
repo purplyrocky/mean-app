@@ -7,6 +7,14 @@
       $urlRouterProvider.otherwise('/projects');
 
       $stateProvider
+        .state('login', {
+          url:'/login',
+          templateUrl: 'partials/login/index.html',
+          controller: 'LoginController',
+          controllerAs: 'loginController'
+        })
+
+      $stateProvider
         .state('projects', {
           url: '/projects',
           templateUrl: 'partials/projects/index.html',
