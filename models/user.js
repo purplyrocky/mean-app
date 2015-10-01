@@ -22,14 +22,14 @@ UserSchema.pre('save', function preSave(next) {
 
 		bcrypt.hash(user.password, salt, function () {}, function (err, hash) {
 			if (err) return next(err);
-			user.password= hash;
+			user.password = hash;
 			next();
 		});
 	});
 });
 
 UserSchema.methods.validPassword = function validPassword(password, cb) {
-	return bcrypt.compare(password, this.password,cb);
+	return bcrypt.compare(password, this.password, cb);
 };
 
 mongoose.model('User', UserSchema);
