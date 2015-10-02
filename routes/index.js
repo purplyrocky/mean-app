@@ -1,6 +1,7 @@
 var express = require('express'),
 	router = express.Router(),
-	passport = require('passport');
+	passport = require('passport'),
+	jwt = require('../modules/jwt.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -8,7 +9,10 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/login', passport.authenticate('local', {session: false}), function (req, res) {
-	res.json(req.user);
+	res.json({
+		user: req.user,
+		token: jwt.sign(req.user)
+	});
 });
 
 module.exports = router;

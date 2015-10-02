@@ -3,9 +3,16 @@
   'use strict';
 
   angular.module('app')
-    .controller('LoginController', function (Users) {
+    .controller('LoginController', function (Users, $state) {
       var vm = this;
       vm.creds = {};
-      vm.login = Users.login;
+      vm.login = function login(creds) {
+      	Users.login(creds)
+      	  .then(function () {
+      	  	$state.go('projects');
+      	  }, function (err) {
+      	  	vm.loginFailed = true;
+      	  });
+      };
     });
 }());

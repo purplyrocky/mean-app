@@ -3,10 +3,11 @@
   'use strict';
 
   angular.module('app')
-    .controller('ProjectsController', function (projects, Projects, $modal, $state, $rootScope) {
+    .controller('ProjectsController', function (projects, Projects, $modal, Users) {
       var vm = this;
       vm.projects = projects;
       vm.remove = Projects.del;
+      vm.currentUser = Users.currentUser;
 
       /* Adding a new project */
       vm.addProject = function addProject(project) {

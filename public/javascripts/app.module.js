@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('app', ['ui.router', 'app.ui', 'ui.bootstrap'])
-    .config(function ($stateProvider, $urlRouterProvider) {
+    .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
 
       $urlRouterProvider.otherwise('/projects');
 
@@ -29,7 +29,12 @@
               return Users.get();
             }
 
-          } 
+          },
+
+          data: {
+            requiresLogin: true
+          }
+
         })
 
         .state('projects.detail', {
@@ -41,15 +46,44 @@
             project: function (Projects, $stateParams, projects) {
               return Projects.find($stateParams.projectId);
             }
-          } 
+          },
+
+          data: {
+            requiresLogin: true
+          }
+
         })
 
         .state('projects.detail.edit', {
           url: '/edit',
           templateUrl: 'partials/projects/edit.html',
           controller: 'ProjectEditController',
-          controllerAs: 'projectEditController'
+          controllerAs: 'projectEditController',
+          data: {
+            requiresLogin: true
+          }
         });
+    
+      $httpProvider.interceptors.push(function ($injector) {
+        return {
+          request: function (config) {
+            var Users = $injector.get('Users');
+            if (Users.isLoggedIn()) config.headers.Authorization = 'Token ' + Users.currentUserToken;
+            return config;
+          }
+        };
+      });
+    })
 
+    .run(function ($rootScope, Users, $state) {
+      $rootScope.$on('$stateChangeStart', function (event, toState) {
+        if (toState.data && toState.data.requiresLogin) {
+          if (!Users.isLoggedIn()) {
+            event.preventDefault();
+            $state.go('login');
+          }
+        }
+      });
     });
+
 }());

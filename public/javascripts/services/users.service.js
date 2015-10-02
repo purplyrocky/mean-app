@@ -2,8 +2,13 @@
   'use strict';
 
   angular.module('app')
-    .service('Users', function ($http, User){
+    .service('Users', function ($http, User, $state){
       var vm = this;
+
+      vm.currentUser = null;
+
+      vm.currentUserToken = null;
+
       vm.users = [];
 
       vm.find = function find(userId) {
@@ -11,26 +16,29 @@
       };
 
       //get users from the database
-      vm.get = function get(){
-      	return $http.get('/users')
-            .then(function (res) {
-               vm.users.splice(0);
-          
-            res.data.forEach(function (user) {
-	            vm.users.push(new User(user));
-	        });
+      vm.get = function get() {
+        return $http.get('/users')
+          .then(function (res) {
+            vm.users.splice(0);
 
-        	return vm.users;
-    	});
+            res.data.forEach(function (user) {
+              vm.users.push(new User(user));
+            });
+
+            return vm.users;
+          });
       };
 
       vm.login = function login(creds) {
         return $http.post('/login', creds)
           .then(function (res) {
-            console.log(res.data);
-          }, function (err) {
-            console.error(err);
+            vm.currentUser = res.data.user;
+            vm.currentUserToken = res.data.token;
           });
+      };
+
+      vm.isLoggedIn = function isLoggedIn() {
+        return !!vm.currentUser;
       };
 
     });

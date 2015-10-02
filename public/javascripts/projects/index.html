@@ -1,7 +1,14 @@
 <div data-ui-view>
-    <div>
-        <button class="btn btn-primary pull-right" data-ng-click="projectsController.addProject()">Add Project</button>
-        <h1>Projects</h1>
-        <projects-table data-remove="projectsController.remove" data-projects="projectsController.projects"></projects-table>
+    <div class="row">
+    	<div class="col-sm-8">
+        	<h1>Projects</h1>
+        </div>
+        <div class="col-sm-2">
+        	<h4 style="margin-top: 30px;">Hey {{projectsController.currentUser.first_name}}</h4>
+        </div>
+        <div class="col-sm-2">
+        	<button class="btn btn-primary" data-ng-click="projectsController.addProject()" style="margin-top: 25px;">Add Project</button>
+        </div>
     </div>
+    <projects-table data-remove="projectsController.remove" data-projects="projectsController.projects"></projects-table>
 </div>
