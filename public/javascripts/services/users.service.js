@@ -24,5 +24,14 @@
     	});
       };
 
+      vm.login = function login(creds) {
+        return $http.post('/login', creds)
+          .then(function (res) {
+            console.log(res.data);
+          }, function (err) {
+            console.error(err);
+          });
+      };
+
     });
 }());

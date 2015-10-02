@@ -14,7 +14,6 @@
           controllerAs: 'loginController'
         })
 
-      $stateProvider
         .state('projects', {
           url: '/projects',
           templateUrl: 'partials/projects/index.html',
